@@ -5,3 +5,12 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 virtualenv==15.1.0
 Werkzeug==0.12.2
+spotipy
+Flask-SQLAlchemy
+Flask-WhooshAlchemy
+Flask-WTF
+psycopg2
+SQLAlchemy
+sqlalchemy-migrate
+sqlparse
+python-dotenv

@@ -3,17 +3,31 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     <title>moodtube</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="styles.css") }}"/>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <style>
-      .container {
-        max-width: 1000px;
-      }
-    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/styles.css") }}"/>
   </head>
-  <body>
+  <body class="body">
     <div class="container">
-      <h1>moodtube</h1>
+      <nav class="navbar navbar-default" role="navigation">
+        <a class="brand" href="#">moodtube TESTING TESTING</a>
+        <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Link</a></li>
+          <li><a href="#">Link</a></li>
+        </ul>
+      </nav>
+      <div id="chart">
+
+        
+      </div>
+      <script type="text/javascript">
+        d3.select(".container").append("p").text("High as the trees/Slow as you like");
+      </script>
+      <script>
+        d3.select(".container").selectAll("p").data(data).enter().append("p").text("New Paragraph!");
+      </script>
+
       <h1>Method used: {{request}}</h1>
       <h1>Wordcount 3000</h1>
       <form role="form" method='POST' action='/'>
@@ -29,5 +43,6 @@
     </div>
     <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
   </body>
 </html>

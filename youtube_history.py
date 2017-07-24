@@ -3,6 +3,13 @@ import getpass
 import subprocess as sp
 from sys import stdout
 
+def __init__(self, path='data'):
+    self.path = path
+    self.raw = os.path.join(self.path, 'raw')
+    # self.ran = os.path.join(self.path, 'ran')
+    # self.df = None
+    # self.tags = None
+    # self.grapher = None
 
 def download_data():
     """Uses youtube_dl to download individual json files for each video."""

@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+# from app import db
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -19,6 +20,9 @@ class Youtuber(db.Model):
     def __init__(self, name):
         self.name = name
 
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
 class Song(db.Model):
     __tablename__ = "song"
     id = db.Column('id', db.Integer, primary_key=True)
@@ -27,14 +31,10 @@ class Song(db.Model):
     mood = db.Column('mood', db.Float)
     youtubers=db.relationship('Youtuber', secondary=relationship_table, backref='song' )
 
-    def __init__(self, title, spotify_id, mood):
+    def __init__(self, title):
         self.title = title
         self.spotify_id = None
         self.mood = None
 
-# db.create_all()
-# db.session.commit()
-
-y = Youtuber(name="jou")
-db.session.add(y)
-db.session.commit()
+    def __repr__(self):
+        return '<id {}>'.format(self.id)

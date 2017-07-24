@@ -1,3 +1,33 @@
-h1 {
-  color: deepskyblue;
+.container {
+  max-width: 1000px;
+}
+
+body, html {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: url(#temperature-gradient);
+  stroke-width: 4px;
 }
