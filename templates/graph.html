@@ -15,20 +15,11 @@
   stroke-width: 2px;
   clip-path: url(#clip);
 }*/
-.area {
-  fill: none;
-  stroke: steelblue;
-  clip-path: url(#clip);
-}
 
-.zoom {
-  cursor: move;
-  fill: none;
-  pointer-events: all;
-}
 
 </style>
 <body>
+  <h1>YouTube Music Mood Over Time</h1>
   <svg width="960" height="500"></svg>
   <script>
 
@@ -184,6 +175,25 @@
     var mean = d3.mean(my_data,function(d) { return +d.mood})
 
     console.log(mean);
+
+    var avgdataset = [
+      {x:11, y:mean},
+      {x:759, y:mean}
+    ];
+
+    console.log(avgdataset);
+
+    var avgline = d3.line()
+      .x(function(d){ return x(d.x); })
+      .y(function(d) { return y(d.y); })
+      .curve(d3.curveLinear);
+
+    svg.append("path")
+      .data([avgdataset])
+      .attr("class", "line")
+      .style("stroke", "red")
+      .attr("d", avgline);
+
   </script>
   <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

@@ -2,32 +2,14 @@
   max-width: 1000px;
 }
 
-/*body, html {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}*/
-
-text {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
+.area {
   fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+  stroke: steelblue;
+  clip-path: url(#clip);
 }
 
-.x.axis path {
-  display: none;
-}
-
-.line {
+.zoom {
+  cursor: move;
   fill: none;
-  stroke: url(#temperature-gradient);
-  stroke-width: 4px;
+  pointer-events: all;
 }
