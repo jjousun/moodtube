@@ -9,10 +9,209 @@
 </head>
 <style> /* set the CSS */
 
+/*.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+  clip-path: url(#clip);
+}*/
+.area {
+  fill: none;
+  stroke: steelblue;
+  clip-path: url(#clip);
+}
+
+.zoom {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+</style>
+<body>
+  <svg width="960" height="500"></svg>
+  <script>
+
+    var my_data = {{ data|tojson|safe }};
+
+    console.log(my_data);
+
+    // var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    // width = 960 - margin.left - margin.right,
+    // height = 500 - margin.top - margin.bottom;
+    var svg = d3.select("svg"),
+      margin = {top: 20, right: 20, bottom: 110, left: 40},
+      margin2 = {top: 430, right: 20, bottom: 30, left: 40},
+      width = +svg.attr("width") - margin.left - margin.right,
+      height = +svg.attr("height") - margin.top - margin.bottom,
+      height2 = +svg.attr("height") - margin2.top - margin2.bottom;
+
+    // // set the ranges
+    // var x = d3.scaleLinear().range([0, width]);
+    // var y = d3.scaleLinear().range([height, 0]);
+    var x = d3.scaleLinear().range([0, width]),
+      x2 = d3.scaleLinear().range([0, width]),
+      y = d3.scaleLinear().range([height, 0]),
+      y2 = d3.scaleLinear().range([height2, 0]);
+
+    var xAxis = d3.axisBottom(x),
+      xAxis2 = d3.axisBottom(x2),
+      yAxis = d3.axisLeft(y);
+
+    var brush = d3.brushX()
+      .extent([[0, 0], [width, height2]])
+      .on("brush end", brushed);
+
+    var zoom = d3.zoom()
+      .scaleExtent([1, Infinity])
+      .translateExtent([[0, 0], [width, height]])
+      .extent([[0, 0], [width, height]])
+      .on("zoom", zoomed);
+
+    // // define the line
+    // var area = d3.line()
+    //   .x(function(d) { return x(d.id); })
+    //   .y(function(d) { return y(d.mood); })
+    //   .curve(d3.curveBasis);
+    var area = d3.area()
+      .curve(d3.curveMonotoneX)
+      .x(function(d) { return x(d.id); })
+      .y0(height)
+      .y1(function(d) { return y(d.mood); });
+
+    var area2 = d3.area()
+      .curve(d3.curveMonotoneX)
+      .x(function(d) { return x2(d.id); })
+      .y0(height2)
+      .y1(function(d) { return y2(d.mood); });
+
+    // // append the svg obgect to the body of the page
+    // // appends a 'group' element to 'svg'
+    // // moves the 'group' element to the top left margin
+    // var svg = d3.select("body").append("svg")
+    //     .attr("width", width + margin.left + margin.right)
+    //     .attr("height", height + margin.top + margin.bottom)
+    //   .append("g")
+    //     .attr("transform",
+    //           "translate(" + margin.left + "," + margin.top + ")");
+    svg.append("defs").append("clipPath")
+      .attr("id", "clip")
+    .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
+    var focus = svg.append("g")
+      .attr("class", "focus")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var context = svg.append("g")
+      .attr("class", "context")
+      .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+    // // Scale the range of the data
+    x.domain(d3.extent(my_data, function(d) { return d.id; }));
+    y.domain([0, d3.max(my_data, function(d) { return d.mood; })]);
+    x2.domain(x.domain());
+    y2.domain(y.domain());
+
+    focus.append("path")
+      .datum(my_data)
+      .attr("class", "area")
+      .attr("d", area);
+
+    focus.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+    focus.append("g")
+      .attr("class", "axis axis--y")
+      .call(yAxis);
+
+    context.append("path")
+      .datum(my_data)
+      .attr("class", "area")
+      .attr("d", area2);
+
+    context.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height2 + ")")
+      .call(xAxis2);
+
+    context.append("g")
+      .attr("class", "brush")
+      .call(brush)
+      .call(brush.move, x.range());
+
+    // // Add the valueline path.
+    // svg.append("path")
+    //   .data([my_data])
+    //   .attr("class", "line")
+    //   .attr("d", area);
+    svg.append("rect")
+      .attr("class", "zoom")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(zoom);
+
+    function brushed() {
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+      var s = d3.event.selection || x2.range();
+      x.domain(s.map(x2.invert, x2));
+      focus.select(".area").attr("d", area);
+      focus.select(".axis--x").call(xAxis);
+      svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+          .scale(width / (s[1] - s[0]))
+          .translate(-s[0], 0));
+    }
+
+    function zoomed() {
+      if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+      var t = d3.event.transform;
+      x.domain(t.rescaleX(x2).domain());
+      focus.select(".area").attr("d", area);
+      focus.select(".axis--x").call(xAxis);
+      context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
+    }
+
+    function type(d) {
+      d.id = +d.id;
+      d.mood = +d.mood;
+      return d;
+    }
+
+    var mean = d3.mean(my_data,function(d) { return +d.mood})
+
+    console.log(mean);
+  </script>
+  <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>moodtube</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/styles.css") }}"/>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<style> /* set the CSS */
+
 .line {
   fill: none;
   stroke: steelblue;
   stroke-width: 2px;
+  clip-path: url(#clip);
+}
+
+.zoom {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
 }
 
 </style>
@@ -20,36 +219,20 @@
   <script>
 
 
-    var the_moods = {{ data|tojson|safe }};
-    // var moods = [];
-    // for (var key in the_moods) {
-    //   moods.push(the_moods[key]);
-    // }
-    // console.log(moods);
-    console.log(the_moods);
+    var my_data = {{ data|tojson|safe }};
 
-    // canvas.selectAll("rect")
-    // .data(the_moods)
-    // .enter()
-    // .append("rect")
-    // .attr("width", function(x) { return x.moods; })
-    // .attr("height", 45)
-    // .attr("y", function(x, i) { return i * 50; })
-    // .attr("fill", "blue")
+    console.log(my_data);
 
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
-
-    // parse the date / time
-    // var parseTime = d3.timeParse("%d-%b-%y");
 
     // set the ranges
     var x = d3.scaleLinear().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
 
     // define the line
-    var valueline = d3.line()
+    var area = d3.line()
         .x(function(d) { return x(d.id); })
         .y(function(d) { return y(d.mood); })
         .curve(d3.curveBasis);
@@ -64,38 +247,172 @@
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
-    // // Get the data
-    // var getting_data = function(data) {
+    // Scale the range of the data
+    x.domain(d3.extent(my_data, function(d) { return d.id; }));
+    y.domain([0, d3.max(my_data, function(d) { return d.mood; })]);
+
+    // Add the valueline path.
+    svg.append("path")
+        .data([my_data])
+        .attr("class", "line")
+        .attr("d", area);
+
+    // var xAxis = d3.axisBottom(x);
     //
-    //   // format the data
-    //   data.forEach(function(d) {
-    //       d.date = parseTime(d.date);
-    //       d.close = +d.close;
-    //   });
-//
-  // Scale the range of the data
-  x.domain(d3.extent(the_moods, function(d) { return d.id; }));
-  y.domain([0, d3.max(the_moods, function(d) { return d.mood; })]);
+    // var yAxis = d3.axisLeft(y);
 
-  // Add the valueline path.
-  svg.append("path")
-      .data([the_moods])
-      .attr("class", "line")
-      .attr("d", valueline);
+    // Add the X Axis
+    svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-  // Add the X Axis
-  svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+    // Add the Y Axis
+    svg.append("g")
+        .call(d3.axisLeft(y));
 
-  // Add the Y Axis
-  svg.append("g")
-      .call(d3.axisLeft(y));
+    // var yGroup = g.append("g");
+    //
+    // var xGroup = g.append("g")
+    //   .attr("transform", "translate(0," + height + ")");
 
+    var mean = d3.mean(my_data,function(d) { return +d.mood})
 
+    // var area = d3.area()
+    //   .curve(d3.curveStepAfter)
+    //   .y0(y(0))
+    //   .y1(function(d) { return y(+d.mood); });
+
+  //   var areaPath = g.append("path")
+  //     .attr("clip-path", "url(#clip)")
+  //     .attr("fill", "steelblue");
+  //
+  //   var yGroup = g.append("g");
+  //
+  //   var xGroup = g.append("g")
+  //     .attr("transform", "translate(0," + height + ")");
+  //
+  //   var zoom = d3.zoom()
+  //     .scaleExtent([1 / 4, 8])
+  //     .translateExtent([[-width, -Infinity], [2 * width, Infinity]])
+  //     .on("zoom", zoomed);
+  //
+  //   var zoomRect = svg.append("rect")
+  //     .attr("width", width)
+  //     .attr("height", height)
+  //     .attr("fill", "none")
+  //     .attr("pointer-events", "all")
+  //     .call(zoom);
+  //
+  //   g.append("clipPath")
+  //     .attr("id", "clip")
+  //   .append("rect")
+  //     .attr("width", width)
+  //     .attr("height", height);
+  //
+  //
+  // var xExtent = d3.extent(my_data, function(d) { return +d.id; });
+  //   zoom.translateExtent([[x(xExtent[0]), -Infinity], [x(xExtent[1]), Infinity]])
+  //   y.domain([0, d3.max(my_data, function(d) { return +d.mood; })]);
+  //   yGroup.call(yAxis).select(".domain").remove();
+  //   areaPath.datum(my_data);
+  //   zoomRect.call(zoom.transform, d3.zoomIdentity);
+  //
+  // function zoomed() {
+  //   var xz = d3.event.transform.rescaleX(x);
+  //   xGroup.call(xAxis.scale(xz));
+  //   areaPath.attr("d", area.x(function(d) { return xz(+d.id); }));
+  // }
+
+    console.log(mean);
   </script>
   <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="assets/js/script.js"></script>
 </body>
-</html>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>moodtube</title>
+    <style>
+    .chart {
+
+    }
+
+    .main text {
+      font: 10px sans-serif;
+    }
+
+    .axis line, .axis path {
+      shape-rendering: crispEdges;
+      stroke: black;
+      fill: none;
+    }
+
+    circle {
+      fill: steelblue;
+    }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <div class='content'>
+
+    </div>
+
+    <script>
+      var my_data = {{ data|tojson|safe }};
+
+      var margin = {top: 20, right: 15, bottom: 60, left: 60}
+        , width = 960 - margin.left - margin.right
+        , height = 500 - margin.top - margin.bottom;
+
+      var x = d3.scaleLinear().range([0, width]);
+      var y = d3.scaleLinear().range([height, 0]);
+
+      var chart = d3.select('body')
+        .append('svg:svg')
+        .attr('width', width + margin.right + margin.left)
+        .attr('height', height + margin.top + margin.bottom)
+        .attr('class', 'chart')
+
+      var main = chart.append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+        .attr('width', width)
+        .attr('height', height)
+        .attr('class', 'main')
+
+      x.domain(d3.extent(my_data, function(d) { return d.id; }));
+      y.domain([0, d3.max(my_data, function(d) { return d.mood; })]);
+
+      var svg = d3.select("body").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+      // Add the X Axis
+      svg.append("g")
+          .attr("transform", "translate(0," + height + ")")
+          .call(d3.axisBottom(x));
+
+      // Add the Y Axis
+      svg.append("g")
+          .call(d3.axisLeft(y));
+
+      var g = main.append("svg:g");
+
+      g.selectAll("scatter-dots")
+        .data(my_data)
+        .enter().append("svg:circle")
+        .attr("cx", function (d,i) { return x(d.id); } )
+        .attr("cy", function (d) { return y(d.mood); } )
+        .attr("r", 4);
+
+    </script>
+
+    <script type="text/javascript" src="scatterchart.js"></script>
+  </body>
+</html> -->

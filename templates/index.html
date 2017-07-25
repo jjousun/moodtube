@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     <title>moodtube</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/styles.css") }}"/>
   </head>
   <body class="body">
@@ -19,14 +18,12 @@
       </nav>
       <div id="chart">
 
-        
+
       </div>
       <script type="text/javascript">
-        d3.select(".container").append("p").text("High as the trees/Slow as you like");
+
       </script>
-      <script>
-        d3.select(".container").selectAll("p").data(data).enter().append("p").text("New Paragraph!");
-      </script>
+  
 
       <h1>Method used: {{request}}</h1>
       <h1>Wordcount 3000</h1>
