@@ -13,7 +13,7 @@ from models import db, Youtuber, Song
 
 from spotipy.oauth2 import SpotifyClientCredentials
 
-client_credentials_manager = SpotifyClientCredentials(client_id='',client_secret='')
+client_credentials_manager = SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID,client_secret=SPOTIFY_CLIENT_SECRET)
 
 my_songs = Youtuber.query.get(1).songs
 

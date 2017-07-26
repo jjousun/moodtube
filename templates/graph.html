@@ -18,7 +18,7 @@
 
 </style>
 <body class="container">
-  <a class="brand" href="#">moodtube TESTING TESTING</a>
+  <a class="brand" href="#">moodtube</a>
   <h1>YouTube Music Mood Over Time</h1>
   <p>
     Spotify's Web API returns a measurement called 'valence': "A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry)."
@@ -129,17 +129,19 @@
           .attr("cx", function(d) { return x(d.id); })
           .attr("cy", function(d) { return y(d.mood); })
           .on("mouseover", function(d) {
+              d3.event.stopImmediatePropagation();
               console.log("HERE I AM TRYING TO GET DATA");
               d3.select(this).attr("r", 7);
               div.transition()
                   .duration(200)
                   .style("opacity", .9);
-              // div.html(d.title + " - " + d.mood)
-              focus.select("text").text(function() { return d.mood; })
+              div.html(d.title + " - " + d.mood)
+              // focus.select("text").text(function() { return d.mood; })
                   .style("left", (d3.event.pageX) + "px")
                   .style("top", (d3.event.pageY - 28) + "px");
               })
-           .on("mouseout", function(d) {
+          .on("mouseout", function(d) {
+              console.log("TRYING THIS ONE OUT");
               d3.select(this).attr("r", 4);
               div.transition()
                   .duration(500)
@@ -171,7 +173,45 @@
       .attr("width", width)
       .attr("height", height)
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      // .style("fill", "none")
+      //   .style("pointer-events", "all")
+      //   .on("mouseover", function() { focus.style("display", null); })
+      //   .on("mouseout", function() { focus.style("display", "none"); })
+      //   .on("mousemove", mousemove)
+
       .call(zoom);
+
+    // function mouseDate(scale) {
+  	// 	var g = d3.select("#group")._groups[0][0]
+  	// 	var x0 = scale.invert(d3.mouse(g)[0]),
+  	// 	i = bisectDate(data, x0, 1),
+  	// 	d0 = data[i - 1],
+  	// 	d1 = data[i],
+  	// 	d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+  	// return d;
+  	// }
+    //
+  	// function mousemove() {
+  	// 	var transform = d3.zoomTransform(this);
+  	// 	var xt = transform.rescaleX(x), yt = transform.rescaleY(y);
+  	// 	d = mouseDate(xt);
+  	// 	focus.select("circle.y")
+  	// 		.attr('cx', function() {
+  	// 								return transform.applyX(x(d.dt));
+  	// 							})
+  	// 		.attr('cy', function() {
+  	// 								return transform.applyY(y(d.price));
+  	// 							});
+  	// 	focus.select("text")
+  	// 		 .text(formatCurrency(d.price))
+  	// 		 .attr('x', function() {
+  	// 								return transform.applyX(x(d.dt))+10;
+  	// 		 })
+  	// 		 .attr('y', function() {
+  	// 								return transform.applyY(y(d.price));
+  	// 		 });
+    //
+  	// }
 
     function brushed() {
       if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
