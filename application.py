@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from models import *
 import pandas as pd
 from sqlalchemy import create_engine, desc
-app = application
+# app = application
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -58,4 +58,4 @@ def make_graph():
     return render_template("graph.html", data=response2, tables=[downers(classes='lowest_valences'),uppers(classes="highest_valences")], titles=['','Lowest Moods Songs','Highest Moods Songs'])
 
 if __name__ == '__main__': # Erica separated this into a file called run.py
-    app.run(debug=False) #remove this option for production
+    app.run(debug=True) #remove this option for production

@@ -6,9 +6,15 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/styles.css") }}"/>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
   </head>
-  <body>
+  <body class="container">
     <div class=page>
-    <a class="brand" href="#">moodtube</a>
+      <nav class="navbar navbar-default" role="navigation">
+        <a class="brand" href="/">moodtube</a>
+        <ul class="nav">
+          <li><a href="/graph">Graph</a></li>
+          <li><a href="/db">Databse</a></li>
+        </ul>
+      </nav>
     <h1>My SONGS!</h1>
     {% for table in tables %}
       <h2>{{titles[loop.index]}}</h2>
