@@ -1,0 +1,153 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>title</th>
+      <th>spotify_id</th>
+      <th>mood</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>393</td>
+      <td>Radiohead - The Tourist</td>
+      <td>5R8pnOmAwKNh4KnvJW2paN</td>
+      <td>0.0394</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>346</td>
+      <td>Planetarium” - La La Land</td>
+      <td>70RecAVg5QudOXfJs64sM5</td>
+      <td>0.0397</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>327</td>
+      <td>You'll Never Walk Alone - Nina Simone</td>
+      <td>27NeanSnlYjMpKe0S1Cz3q</td>
+      <td>0.0411</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>692</td>
+      <td>Major Lazer - Be Together feat. Wild Belle</td>
+      <td>2DnX34vLkKWROrBxhETN15</td>
+      <td>0.0432</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>611</td>
+      <td>String Quartet Tribute Motion picture soundtra...</td>
+      <td>4ciDXFCYx8zdfHJgqZsTQ0</td>
+      <td>0.0547</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>101</td>
+      <td>Marian Hill - Down</td>
+      <td>5eCkuGPZNl4mISFNPgr3Dd</td>
+      <td>0.0638</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>502</td>
+      <td>Adele - Skyfall</td>
+      <td>6VObnIkLVruX4UVyxWhlqm</td>
+      <td>0.0780</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>350</td>
+      <td>“Mia &amp; Sebastian’s Theme” - La La Land</td>
+      <td>1Vk4yRsz0iBzDiZEoFMQyv</td>
+      <td>0.0790</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>645</td>
+      <td>Ariana Grande - Let Me Love You Lil Wayne</td>
+      <td>5AKlnLpP3WLwZseNbjquND</td>
+      <td>0.0791</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>441</td>
+      <td>Placebo - "Running Up That Hill"</td>
+      <td>6RHHbAbyIcPpvS1dP3KUGq</td>
+      <td>0.0807</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>90</td>
+      <td>Eva Cassidy - What A Wonderful World</td>
+      <td>1qNyQ1b8SIA3M811Vj0Iuq</td>
+      <td>0.0882</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>463</td>
+      <td>Cigarettes After Sex - Nothing's Gonna Hurt Yo...</td>
+      <td>3GhsBdS9ulPK3KCdwHRPhG</td>
+      <td>0.1000</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>319</td>
+      <td>U2 - With Or Without You</td>
+      <td>4ha9ajL4Kz98uldAfuos6p</td>
+      <td>0.1020</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>166</td>
+      <td>Highly Suspect - Little One</td>
+      <td>5y1jgbDNgTfxoWXv3FhH2Q</td>
+      <td>0.1080</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>340</td>
+      <td>“The End” - La La Land</td>
+      <td>7gXjNlZlfP1GXRH1WvyuE2</td>
+      <td>0.1120</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>240</td>
+      <td>Bonnie Raitt - I Can't Make You Love Me</td>
+      <td>69uJi5QsBtqlYkGURTBli8</td>
+      <td>0.1160</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>250</td>
+      <td>Phil Collins Against All Odds</td>
+      <td>63CHa6rmamv9OsehkRD8oz</td>
+      <td>0.1180</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>128</td>
+      <td>Highly Suspect - Serotonia</td>
+      <td>0aaOrTcwzvbTni3zUarEaT</td>
+      <td>0.1210</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>394</td>
+      <td>Radiohead - No Surprises</td>
+      <td>1bSpwPhAxZwlR2enJJsv7U</td>
+      <td>0.1260</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>479</td>
+      <td>‘Mia &amp; Sebastian’s Theme ’ - La La Land Origin...</td>
+      <td>1joFnRAR5U4kQb34ubZ7sD</td>
+      <td>0.1280</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,153 @@
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>title</th>
+      <th>spotify_id</th>
+      <th>mood</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>320</td>
+      <td>Bloodhound Gang - The Bad Touch</td>
+      <td>5EYdTPdJD74r9EVZBztqGG</td>
+      <td>0.971</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>256</td>
+      <td>Salt-N-Pepa - Push It</td>
+      <td>0TT7wJiEYD5GAeJfSR1ETX</td>
+      <td>0.970</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>733</td>
+      <td>Dusty Springfield - Spooky</td>
+      <td>1683Q5FUEQ4fIG2f87MAW4</td>
+      <td>0.967</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>581</td>
+      <td>Kylie Minogue - Can't Get You Out Of My Head</td>
+      <td>7MoKXLQeI0Bh2QodCjDO4K</td>
+      <td>0.966</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>309</td>
+      <td>Boney M - Rasputin</td>
+      <td>5jkFvD4UJrmdoezzT1FRoP</td>
+      <td>0.966</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>238</td>
+      <td>Duffy - Rockferry</td>
+      <td>8twQ5XCFJMTE37ZSU0gsj</td>
+      <td>0.966</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>232</td>
+      <td>Duffy - Mercy</td>
+      <td>78twQ5XCFJMTE37ZSU0gsj</td>
+      <td>0.966</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>60</td>
+      <td>Ginuwine - Pony</td>
+      <td>6mz1fBdKATx6qP4oP1I65G</td>
+      <td>0.966</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>395</td>
+      <td>OutKast - Hey Ya!</td>
+      <td>3AszgPDZd9q0DpDFt4HFBy</td>
+      <td>0.964</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>359</td>
+      <td>The Lovecats</td>
+      <td>2gOaGuy7ZlfVDSnTfPkxpH</td>
+      <td>0.963</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>195</td>
+      <td>Britney Spears - I'm A Slave 4 U</td>
+      <td>6ldwfK0yWgTAlmIfuQkTYN</td>
+      <td>0.962</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>511</td>
+      <td>Baby Baby - Amy Grant</td>
+      <td>1b1XdrLUfxBytN8oe9m417</td>
+      <td>0.961</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>361</td>
+      <td>The Cure - Close To Me</td>
+      <td>7ABE6G4uQxbNtYgVrpBBPA</td>
+      <td>0.961</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>735</td>
+      <td>I Only Want to Be with You Dusty Springfield</td>
+      <td>7hN1KFziTUOCIj6XavvrtT</td>
+      <td>0.960</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>118</td>
+      <td>Carlos Vives Shakira - La Bicicleta</td>
+      <td>43it4kot08akLzFIEMhXNN</td>
+      <td>0.954</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>305</td>
+      <td>Modern Talking - Sexy Sexy Lover</td>
+      <td>7oBk1jksq2JSkfjfTYNVrb</td>
+      <td>0.952</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>67</td>
+      <td>Cazwell - Ice Cream Truck</td>
+      <td>33ma0jLVaOli7ICzyoYMeC</td>
+      <td>0.949</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>421</td>
+      <td>Disclosure - Willing &amp; Able</td>
+      <td>29rBJWizgnVht4qXpHyDxh</td>
+      <td>0.943</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>297</td>
+      <td>Mary's Boy Child / Oh My Lord - Boney M</td>
+      <td>3QIH8mWChR4mY2kABc4yzA</td>
+      <td>0.943</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>108</td>
+      <td>Enrique Iglesias - Bailando Sean Paul Descemer...</td>
+      <td>1yM7GIEJ2QniupkEHOyp0a</td>
+      <td>0.942</td>
+    </tr>
+  </tbody>
+</table>

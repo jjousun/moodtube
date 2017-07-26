@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, request, render_template, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, render_template
 from dotenv import load_dotenv
 from models import *
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, desc
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
@@ -23,43 +22,38 @@ db = SQLAlchemy(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    # return "Hello World!"
-    # return "Method used: %s" % request.method
-    dataset=[5, 6, 23, 1, 7]
-    return render_template("index.html", request=request.method, data=dataset)
+    return render_template("index.html", request=request.method)
 
 @app.route('/db')
 def df_from_files():
-    # all_songs = db.session.query(Song).order_by(Song.id)
+    # df = pd.read_sql(db.session.query(Song).order_by(desc(Song.id)).statement, db.session.bind)
     df = pd.read_sql(db.session.query(Song).order_by(Song.id).statement, db.session.bind)
-    # df = pd.read_sql_table(Song)
-    # for row in all_songs:
-    #     # return '<br>'.join(str(row) for row in rows)
-    #     # print(instances.id, instances.title, instances.mood)
-    #     all_songs.append(row)
 
-    # return '<p> %s' % all_songs
-    # return jsonify(all_songs)
     testtest = df.dropna().to_html
     return render_template("test.html", tables=[testtest(classes='all_songs_ordered')], titles=['All My Songs in Order'])
 
+
 @app.route('/json')
 def to_json():
-    # response = json.dumps(response.text, sort_keys = True, indent = 4, separators = (',', ': '))
     df = pd.read_sql(db.session.query(Song).order_by(Song.id).statement, db.session.bind)
     response = df.dropna().to_json()
     return render_template("json.html", response=response)
 
 @app.route('/graph')
 def make_graph():
-    # response = json.dumps(response.text, sort_keys = True, indent = 4, separators = (',', ': '))
     df = pd.read_sql(db.session.query(Song).order_by(Song.id).statement, db.session.bind)
-    # response2 = df.dropna().to_json()
     response2 = df.dropna()
-    # response2 = response2.values.T.tolist()
     response2 = response2.to_dict('records')
-    print(response2)
-    return render_template("graph.html", data=response2)
+
+    # print(response2)
+
+    df = pd.read_csv('./data/bottom_moods.csv')
+    downers = df.to_html
+
+    df = pd.read_csv('./data/top_moods.csv')
+    uppers = df.to_html
+
+    return render_template("graph.html", data=response2, tables=[downers(classes='lowest_valences'),uppers(classes="highest_valences")], titles=['','Lowest Moods Songs','Highest Moods Songs'])
 
 if __name__ == '__main__': # Erica separated this into a file called run.py
     app.run(debug=True) #remove this option for production
