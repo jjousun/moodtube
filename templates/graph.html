@@ -110,13 +110,13 @@
     focus.selectAll("dot")
         .data(my_data)
        .enter().append("circle")
-        .attr("r", 2)
+        .attr("r", 3)
         .attr("cx", function(d) { return x(d.id); })
         .attr("cy", function(d) { return y(d.mood); })
         .on("mouseover", function(d) {
             d3.event.stopImmediatePropagation();
             // console.log(">>>>>> ON A POINT NOW <<<<<<<<<<");
-            d3.select(this).attr("r", 5);
+            d3.select(this).attr("r", 6);
             // console.log(d);
             tooltip.transition()
               .duration(200)
@@ -128,7 +128,7 @@
               })
         .on("mouseout", function(d) {
             // console.log(">>>>>>>> LEFT THE POINT <<<<<<<<<<<<<");
-            d3.select(this).attr("r", 2);
+            d3.select(this).attr("r", 3);
             tooltip.transition()
               .duration(500)
               .style("opacity", 0);
@@ -200,7 +200,7 @@
       .call(zoom);
 
     function brushed() {
-      console.log("FUNCTION BRUSHED CALLED ");
+      // console.log("FUNCTION BRUSHED CALLED ");
       if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
       var s = d3.event.selection || x2.range();
       x.domain(s.map(x2.invert, x2));
@@ -214,7 +214,7 @@
     }
 
     function zoomed() {
-      console.log("FUNCTION ZOOMED CALLED");
+      // console.log("FUNCTION ZOOMED CALLED");
       if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
       var t = d3.event.transform;
       x.domain(t.rescaleX(x2).domain());
