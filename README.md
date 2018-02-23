@@ -10,8 +10,7 @@ This student project was my final capstone as the culmination of Ada Developers 
 ## Interactive graph with hover-able data points:
 ![Alt Text](moodtube_graph.gif "Animation showing d3 graph functionalities")
 
-### 20 Highest-Mood Songs
+### Screenshots:
 ![Alt Text](high_mood_screenshot.png)
 
-### 20 Lowest-Mood Songs
 ![Alt Text](low_mood_screenshot.png)
