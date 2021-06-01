@@ -54,7 +54,7 @@ tabulate==0.7.5
 Tempita==0.5.2
 termcolor==1.1.0
 traitlets==4.3.2
-urllib3==1.21.1
+urllib3==1.26.5
 wcwidth==0.1.7
 websocket-client==0.44.0
 Werkzeug==0.12.2
