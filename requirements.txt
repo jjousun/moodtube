@@ -28,7 +28,7 @@ jedi==0.10.2
 Jinja2==2.9.6
 jmespath==0.9.3
 MarkupSafe==1.0
-numpy==1.13.1
+numpy==1.21.0
 pandas==0.20.3
 pathspec==0.5.0
 pbr==3.1.1
